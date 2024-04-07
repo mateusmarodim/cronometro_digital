@@ -38,7 +38,7 @@
 
 set_global_assignment -name FAMILY "Cyclone II"
 set_global_assignment -name DEVICE EP2C35F672C6
-set_global_assignment -name TOP_LEVEL_ENTITY cronometro
+set_global_assignment -name TOP_LEVEL_ENTITY top_level
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
 set_global_assignment -name PROJECT_CREATION_TIME_DATE "10:59:48  APRIL 03, 2024"
 set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
@@ -48,5 +48,54 @@ set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name ERROR_CHECK_FREQUENCY_DIVISOR 1
 set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (VHDL)"
 set_global_assignment -name EDA_OUTPUT_DATA_FORMAT VHDL -section_id eda_simulation
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_location_assignment PIN_G26 -to RST
+set_location_assignment PIN_Y23 -to SEG_DEZENA[0]
+set_location_assignment PIN_AA25 -to SEG_DEZENA[1]
+set_location_assignment PIN_AA26 -to SEG_DEZENA[2]
+set_location_assignment PIN_Y26 -to SEG_DEZENA[3]
+set_location_assignment PIN_Y25 -to SEG_DEZENA[4]
+set_location_assignment PIN_U22 -to SEG_DEZENA[5]
+set_location_assignment PIN_W24 -to SEG_DEZENA[6]
+set_location_assignment PIN_AB23 -to SEG_UNIDADE[0]
+set_location_assignment PIN_V22 -to SEG_UNIDADE[1]
+set_location_assignment PIN_AC25 -to SEG_UNIDADE[2]
+set_location_assignment PIN_AC26 -to SEG_UNIDADE[3]
+set_location_assignment PIN_AB26 -to SEG_UNIDADE[4]
+set_location_assignment PIN_AB25 -to SEG_UNIDADE[5]
+set_location_assignment PIN_Y24 -to SEG_UNIDADE[6]
+set_location_assignment PIN_V20 -to CENT_DEZENA[0]
+set_location_assignment PIN_V21 -to CENT_DEZENA[1]
+set_location_assignment PIN_W21 -to CENT_DEZENA[2]
+set_location_assignment PIN_Y22 -to CENT_DEZENA[3]
+set_location_assignment PIN_AA24 -to CENT_DEZENA[4]
+set_location_assignment PIN_AA23 -to CENT_DEZENA[5]
+set_location_assignment PIN_AB24 -to CENT_DEZENA[6]
+set_location_assignment PIN_AF10 -to CENT_UNIDADE[0]
+set_location_assignment PIN_AB12 -to CENT_UNIDADE[1]
+set_location_assignment PIN_AC12 -to CENT_UNIDADE[2]
+set_location_assignment PIN_AD11 -to CENT_UNIDADE[3]
+set_location_assignment PIN_AE11 -to CENT_UNIDADE[4]
+set_location_assignment PIN_V14 -to CENT_UNIDADE[5]
+set_location_assignment PIN_V13 -to CENT_UNIDADE[6]
+set_location_assignment PIN_N2 -to CLK
+set_location_assignment PIN_N23 -to EN
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VHDL_FILE latch_t_tb.vhd
+set_global_assignment -name VHDL_FILE latch_t.vhd
+set_global_assignment -name VHDL_FILE top_level_tb.vhd
+set_global_assignment -name VHDL_FILE divisor.vhd
+set_global_assignment -name VHDL_FILE dec_bcd_7seg.vhd
+set_global_assignment -name VHDL_FILE cronometro_tb.vhd
+set_global_assignment -name VHDL_FILE cont_mod_100_tb.vhd
+set_global_assignment -name VHDL_FILE cont_mod_100.vhd
+set_global_assignment -name VHDL_FILE cont_mod_60_tb.vhd
+set_global_assignment -name VHDL_FILE cont_mod_60.vhd
 set_global_assignment -name VHDL_FILE cont_4.vhd
 set_global_assignment -name VHDL_FILE cronometro.vhd
+set_global_assignment -name VHDL_FILE top_level.vhd
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

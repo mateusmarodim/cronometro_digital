@@ -8,8 +8,6 @@ entity cont_4 is
 		RST: in std_logic;
 		EN: in std_logic;
 		CLR: in std_logic;
-		LD: in std_logic;
-		LOAD: in std_logic_vector(3 downto 0);
 		Q: out std_logic_vector(3 downto 0)
 	);
 end entity;
@@ -26,11 +24,7 @@ begin
 				CONT <= (others => '0');
 			else
 				if (EN = '1') then
-					if (LD = '1') then
-						CONT <= LOAD;
-					else
-						CONT <= std_logic_vector(unsigned(CONT) + 1);
-					end if;
+					CONT <= std_logic_vector(unsigned(CONT) + 1);
 				end if;
 			end if;
 		end if;
