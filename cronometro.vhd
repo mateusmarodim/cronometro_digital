@@ -39,6 +39,7 @@ signal cent_unidade_s: std_logic_vector(3 downto 0);
 signal en_segundos_s: std_logic;
 signal clr_centesimos_s: std_logic;
 begin
+    -- instancia um contador mod 60 (BCD) para os segundos
     CONT_SEGUNDOS: cont_mod_60 port map (
         EN => en_segundos_s,
         RST => RST,
@@ -47,6 +48,7 @@ begin
         DEZENA => SEG_DEZENA,
         UNIDADE => SEG_UNIDADE
     );
+    -- instancia um contador mod 100 (BCD) para os centésimos
 
     CONT_CENTESIMOS: cont_mod_100 port map (
         EN => EN,
@@ -57,6 +59,7 @@ begin
         UNIDADE => cent_unidade_s
     );
 
+    -- ativa o EN do contador dos segundos quando os centésimos chegam em 99
     en_segundos_s <= '1' when cent_dezena_s = "1001" and cent_unidade_s = "1001" else '0';
 
     CENT_DEZENA <= cent_dezena_s;

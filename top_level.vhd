@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity top_level is
+entity top_level is -- integração de todos os componentes para interfacear com a placa
     port (
         EN: in std_logic;
         RST: in std_logic;
@@ -40,10 +40,13 @@ component divisor is
 	);
 end component;
 
-component latch_t is
-    Port ( T, CLK, RST : in  STD_LOGIC;
-           Q, Q_bar : out  STD_LOGIC);
+component toggle_switch is
+    port (
+        Button : in  STD_LOGIC;
+        Switch : out STD_LOGIC
+    );
 end component;
+
 signal q_bar_s: std_logic;
 signal cronometro_clk_s: std_logic;
 signal cronometro_en_s: std_logic;
@@ -58,14 +61,14 @@ signal cent_unidade_7seg_s: std_logic_vector(6 downto 0);
 begin
     DIV: divisor port map(
         CLK => CLK,
-        RST => RST,
+        RST => not RST,
         DIV50 => cronometro_clk_s
     );
 
     CRON: cronometro port map(
         CLK => cronometro_clk_s,
-        EN => EN,
-        RST => RST,
+        EN => not cronometro_en_s,
+        RST => not RST,
         SEG_UNIDADE => seg_unidade_s,
         SEG_DEZENA => seg_dezena_s,
         CENT_UNIDADE => cent_unidade_s,
@@ -78,7 +81,7 @@ begin
     );
 
     DEC_SEG_UNIDADE: dec_bcd_7seg port map(
-        BCD => seg_unidade_s,
+        BCD => seg_unidade_s, 
         SEGMENT7 => seg_unidade_7seg_s
     );
     DEC_CENT_DEZENA: dec_bcd_7seg port map(
@@ -89,18 +92,15 @@ begin
         BCD => cent_unidade_s,
         SEGMENT7 => cent_unidade_7seg_s
     );
-
-    LATCH: latch_t port map(
-        Q => cronometro_en_s,
-        CLK => CLK,
-        T => EN,
-        Q_bar => q_bar_s,
-        RST => RST
+  
+    SWITCH: toggle_switch port map(
+        Button => EN,
+        Switch => cronometro_en_s
     );
 
-    SEG_UNIDADE <= seg_unidade_7seg_s;
-    SEG_DEZENA <= seg_dezena_7seg_s;
-    CENT_UNIDADE <= cent_unidade_7seg_s;
-    CENT_DEZENA <= cent_dezena_7seg_s;
+    SEG_UNIDADE <= not seg_unidade_7seg_s;
+    SEG_DEZENA <= not seg_dezena_7seg_s;
+    CENT_UNIDADE <= not cent_unidade_7seg_s;
+    CENT_DEZENA <= not cent_dezena_7seg_s;
 
 end architecture;

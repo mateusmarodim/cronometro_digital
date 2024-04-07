@@ -81,10 +81,11 @@ set_location_assignment PIN_AE11 -to CENT_UNIDADE[4]
 set_location_assignment PIN_V14 -to CENT_UNIDADE[5]
 set_location_assignment PIN_V13 -to CENT_UNIDADE[6]
 set_location_assignment PIN_N2 -to CLK
-set_location_assignment PIN_N23 -to EN
+set_location_assignment PIN_W26 -to EN
 set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
 set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name VHDL_FILE toggle_switch.vhd
 set_global_assignment -name VHDL_FILE latch_t_tb.vhd
 set_global_assignment -name VHDL_FILE latch_t.vhd
 set_global_assignment -name VHDL_FILE top_level_tb.vhd

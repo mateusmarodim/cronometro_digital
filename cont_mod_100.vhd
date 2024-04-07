@@ -7,7 +7,7 @@ entity cont_mod_100 is
         EN: in std_logic;
         RST: in std_logic;
         CLK: in std_logic;
-        CLR: out std_logic;
+        CLR: out std_logic; -- saída para informar para o contador dos segundos (cont_mod_60 BCD) quando chega em 99
         DEZENA: out std_logic_vector(3 downto 0);
         UNIDADE: out std_logic_vector(3 downto 0)
     );
@@ -32,6 +32,7 @@ signal clr_unidade_s: std_logic;
 signal out_unidade_s: std_logic_vector(3 downto 0);
 
 begin
+    -- instanciando um contador de 4 bits (BCD) para as dezenas e um para as unidades
     CONT_DEZENA: cont_4 port map(
         CLK => CLK,
         RST => RST,
@@ -47,6 +48,7 @@ begin
         Q => out_unidade_s
     );
 
+    -- esse contador é o nível mais baixo, então não depende de nenhum sinal externo 
     en_dezena_s <= '1' when out_unidade_s = "1001" else '0';
     clr_dezena_s <= '1' when out_unidade_s = "1001" and out_dezena_s = "1001" else '0';
     clr_unidade_s <= '1' when out_unidade_s = "1001" else '0';

@@ -5,7 +5,7 @@ use IEEE.numeric_std.all;
 entity dec_bcd_7seg is
 
 port(
-
+    -- entra com sinal BCD de 4 bits e converte para sinal de 7 segmentos
 	BCD		:in  std_logic_vector(3 downto 0);
 	SEGMENT7	:out std_logic_vector(6 downto 0)
 
