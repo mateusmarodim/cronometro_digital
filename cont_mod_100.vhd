@@ -7,7 +7,8 @@ entity cont_mod_100 is
         EN: in std_logic;
         RST: in std_logic;
         CLK: in std_logic;
-        CLR: out std_logic; -- saída para informar para o contador dos segundos (cont_mod_60 BCD) quando chega em 99
+        CLR: in std_logic;
+        CLR_OUT: out std_logic; -- saída para informar para o contador dos segundos (cont_mod_60 BCD) quando chega em 99
         DEZENA: out std_logic_vector(3 downto 0);
         UNIDADE: out std_logic_vector(3 downto 0)
     );
@@ -47,13 +48,13 @@ begin
         CLR => clr_unidade_s,
         Q => out_unidade_s
     );
-
+    
     -- esse contador é o nível mais baixo, então não depende de nenhum sinal externo 
     en_dezena_s <= '1' when out_unidade_s = "1001" else '0';
-    clr_dezena_s <= '1' when out_unidade_s = "1001" and out_dezena_s = "1001" else '0';
-    clr_unidade_s <= '1' when out_unidade_s = "1001" else '0';
+    clr_dezena_s <= '1' when CLR = '1' or (out_unidade_s = "1001" and out_dezena_s = "1001") else '0';
+    clr_unidade_s <= '1' when CLR = '1' or out_unidade_s = "1001" else '0';
 
-    CLR <= '1' when out_unidade_s = "1001" and out_dezena_s = "1001" else '0';
+    CLR_OUT <= '1' when CLR = '1' or (out_unidade_s = "1001" and out_dezena_s = "1001") else '0';
     DEZENA <= out_dezena_s;
     UNIDADE <= out_unidade_s;
 end architecture;

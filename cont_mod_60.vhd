@@ -8,6 +8,7 @@ entity cont_mod_60 is
         RST: in std_logic;
         CLK: in std_logic;
         CLR: in std_logic; -- CLR dos centésimos para garantir a contagem correta
+        CLR_GERAL: in std_logic; -- CLR geral para zerar o contador
         DEZENA: out std_logic_vector(3 downto 0);
         UNIDADE: out std_logic_vector(3 downto 0)
     );
@@ -49,8 +50,8 @@ begin
     );
     -- todos os sinais só ativam quando os centesimos estão em 99 (CLR dos centésimos)
     en_dezena_s <= '1' when out_unidade_s = "1001" and CLR = '1' else '0'; -- ativa o EN do cont das dezenas quando a unidade chega em 9
-    clr_dezena_s <= '1' when out_unidade_s = "1001" and out_dezena_s = "0101" and CLR = '1' else '0'; -- ativa o CLR das dezenas quando os segundos chegam em 59
-    clr_unidade_s <= '1' when out_unidade_s = "1001" and CLR = '1' else '0'; -- ativa o CLR das unidades quando as unidades chegam em 9
+    clr_dezena_s <= '1' when (out_unidade_s = "1001" and out_dezena_s = "0101" and CLR = '1') or CLR_GERAL = '1' else '0'; -- ativa o CLR das dezenas quando os segundos chegam em 59
+    clr_unidade_s <= '1' when (out_unidade_s = "1001" and CLR = '1') or CLR_GERAL = '1' else '0'; -- ativa o CLR das unidades quando as unidades chegam em 9
 
     DEZENA <= out_dezena_s;
     UNIDADE <= out_unidade_s;
